@@ -1,0 +1,53 @@
+
+
+:root {
+  padding: 0px;
+  margin: 0px;
+  background-color: #F2F2F2;
+  width: 100%;
+  height: 100%;
+  /* max-width: 1280px; */
+
+  /* fonts */
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: black;
+}
+
+body{
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+p, h1, h2, h3, h4, h4, h5, h6 {
+  padding: 0%;
+  margin: 0%;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(73, 73, 73); 
+  border-radius: 12px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #1a1a1a; 
+}
