@@ -115,6 +115,9 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     setCurrentQuestionIndex(0);
   }
 
+// ciaoooooooo
+
+
   return (
     <QuizContext.Provider
       value={{
