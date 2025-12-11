@@ -169,7 +169,7 @@ function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
               style={{
                 backgroundColor:
                   i === currentQuestionIndex
-                    ? "#fff700"
+                    ? "#00cfff"
                     : answers[i] !== null
                     ? "#6FBF73"
                     : "#edfaff3a",
