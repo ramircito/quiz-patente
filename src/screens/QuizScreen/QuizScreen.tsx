@@ -169,10 +169,10 @@ function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
               style={{
                 backgroundColor:
                   i === currentQuestionIndex
-                    ? "#FFEB6F"
+                    ? "#fff700"
                     : answers[i] !== null
                     ? "#6FBF73"
-                    : "#4A2E50",
+                    : "#edfaff3a",
               }}
             >
               <p>{i + 1}</p>
