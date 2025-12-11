@@ -55,7 +55,13 @@ function Homepage({ setCurrentScreen }: HomepageProps) {
     }
   };
 
-  return (<div className={styles.container}> <h1>Welcome to Salamanca's license lab!!</h1> <p>Test your knowledge and prepare for your Italian driving license exam!</p> <span>Click the button below to get started:</span> <p>What's your name?</p> <input
+  return (
+  <div className={styles.container}>
+    <h1>Welcome to Salamanca's license lab!!</h1> 
+    <p>Test your knowledge and prepare for your Italian driving license exam!</p> 
+    <span>Click the button on top to get started</span> 
+    <p>What's your name?</p> 
+    <input
     type="text"
     value={name}
     onChange={handleChange}

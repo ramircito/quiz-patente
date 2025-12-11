@@ -43,7 +43,7 @@ function QuestionsAnswers({ setCurrentScreen }: QuestionsAnswersProps) {
                                     alt={`Question ${index + 1}`}
                                     className={styles.question_image}
                                 />
-                            )}a
+                            )}
 
                             <p>
                                 <strong>Your Answer:</strong> {userAnswer !== null ? userAnswer.toString().toUpperCase() : 'No answer'}
@@ -67,6 +67,31 @@ function QuestionsAnswers({ setCurrentScreen }: QuestionsAnswersProps) {
 }
 
 export default QuestionsAnswers;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,15 +1,28 @@
 .container {
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg, #2E1C30 0%, #251623 100%);
+    background: linear-gradient(180deg, #1E2A3A 0%, #141C26 100%);
     padding: 30px;
     display: flex;
     flex-direction: column;
-    color: white;
+    color: #ffffff;
     box-sizing: border-box;
     row-gap: 32px;
     justify-content: flex-start;
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    transition: background 0.5s ease;
 }
+
+
+
+.initialbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+
 
 /* --- GREETING --- */
 .greeting {
@@ -18,20 +31,20 @@
 
 .greeting h2 {
     font-size: 40px;
-    font-family: "Verdana", Geneva, Tahoma, sans-serif;
     letter-spacing: 1px;
     margin: 0;
-    text-shadow: 0 0 6px #fff60050;
+    color: #cce0ff;
+    text-shadow: 0 0 6px rgba(0, 102, 204, 0.4);
 }
 
 .greeting span {
-    color: #FFF600;
+    color: #66b2ff;
     font-weight: bold;
 }
 
 /* --- QUIZ BOX WRAPPER --- */
 .quizBox {
-    background: linear-gradient(160deg, #3A263E 0%, #2a1a2d 100%);
+    background: linear-gradient(160deg, #243447 0%, #1c2733 100%);
     border-radius: 16px;
     padding: 35px;
     display: flex;
@@ -40,9 +53,11 @@
     align-items: center;
     margin-top: 15px;
     flex-wrap: wrap;
-    box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+    transition: background 0.4s ease;
 }
 
+/* --- QUIZ ITEMS --- */
 .quizItem,
 .quizNew {
     width: 170px;
@@ -52,63 +67,45 @@
     justify-content: center;
     align-items: center;
     font-size: 28px;
-    font-family: "Verdana", sans-serif;
-    color: black;
-    transition: 0.3s ease;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
-}
-
-.quizItem,
-.quizNew {
-    width: 170px;
-    height: 230px;
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 28px;
-    font-family: "Verdana", sans-serif;
-    color: black;
+    font-family: 'Roboto', sans-serif;
+    color: #333333;
     transition: 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
 }
 
-/* Normale */
+/* Normal Quiz Item */
 .quizItem {
-    background: linear-gradient(145deg, #FFDDAA, #FFEFD5);
-    border: none; /* rimuove il bordo */
-    color: #333;
+    background: linear-gradient(145deg, #cce0ff, #99c2ff);
     font-weight: bold;
-    cursor: pointer;
+    color: #003366;
     text-align: center;
 }
 
 .quizItem:hover {
     transform: translateY(-6px);
-    box-shadow: 0 12px 26px rgba(0,0,0,0.35);
-    /* rimosso il bordo blu */
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35);
 }
 
-/* New Quiz */
+/* New Quiz Item */
 .quizNew {
-    background: linear-gradient(145deg, #B8E1FF, #81C6FF);
+    background: linear-gradient(145deg, #66b2ff, #3399ff);
     font-weight: bold;
     justify-content: flex-start;
     padding-left: 18px;
+    color: #ffffff;
 }
 
 .quizNew:hover {
     opacity: 0.95;
     transform: translateY(-6px);
-    box-shadow: 0 12px 26px rgba(0,0,0,0.35);
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35);
 }
-
 
 /* --- WARNING --- */
 .warning {
-    font-family: "Verdana", Geneva, Tahoma, sans-serif;
-    font-size: 20px;
-    color: #ff6b6b;
+    font-size: 15px;
+    color: #ff3232;
     text-align: center;
     margin-top: 10px;
     font-weight: bold;
@@ -116,24 +113,24 @@
 
 /* --- LOGOUT BUTTON --- */
 .buttonLogout {
-    background: #ff4d4d;
-    color: black;
+    background: #004080;
+    color: #ffffff;
     border: none;
     border-radius: 10px;
     font-size: 26px;
     font-weight: bold;
     padding: 14px 32px;
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     align-self: center;
     margin-top: 15px;
-    box-shadow: 0 5px 12px rgba(0,0,0,0.25);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
 }
 
 .buttonLogout:hover {
-    background: #ff7070;
+    background: #00264d;
     transform: translateY(-4px);
-    box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
 }
 
 /* --- RESPONSIVE --- */
@@ -162,6 +159,3 @@
         padding: 10px 24px;
     }
 }
-
-
-

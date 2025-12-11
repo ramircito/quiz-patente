@@ -1,14 +1,34 @@
-import { Quiz } from "./quiz";
+export class Quiz {
+    question: string;
+    correct_answer: boolean;
+    imageUrl: string;
+    user_answer: boolean;
+
+    constructor(
+        question: string,
+        correct_answer: boolean,
+        imageUrl: string,
+        user_answer: boolean,
+    ) {
+        this.question = question;
+        this.correct_answer = correct_answer;
+        this.imageUrl = imageUrl;
+        this.user_answer = user_answer;
+    }
+
     
-export class User {
+    }
+    
+    export class User {
     name: string;
-    listOfQuiz: Array<Quiz>;
+    quizList: Array<Quiz>;
     
+
     constructor(
         name: string,
     ) {
         this.name = name;
-        this.listOfQuiz = new Array<Quiz>();
-    }   
-}
+        this.quizList = new Array<Quiz>();
+    }
     
+    }

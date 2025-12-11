@@ -2,11 +2,6 @@ import { Screens } from "../../App";
 import styles from "./QuizResults.module.css";
 import { useQuiz } from "../../Providers/QuizProvider";
 import resultSentences from "../../assets/resultSentences.json";
-import { useAtom } from "jotai";
-import { currentUser } from "../../states/userAtom";
-import { User } from "../../models/user";
-import { Quiz, QuizQuestion } from "../../models/quiz";
-import { v4 as uuidv4 } from "uuid";
 
 type QuizResultsProps = {
   setCurrentScreen: (screen: Screens) => void;
@@ -14,7 +9,6 @@ type QuizResultsProps = {
 
 function QuizResults({ setCurrentScreen }: QuizResultsProps) {
   const { answers, randomQuestions } = useQuiz();
-  const [user, setUser] = useAtom(currentUser);
 
   if (!randomQuestions.length) {
     return <h1>Loading results...</h1>;
@@ -43,33 +37,6 @@ function QuizResults({ setCurrentScreen }: QuizResultsProps) {
 
   const message = getRandomSentence(errors);
 
-  const handleReturnToMenu = () => {
-
-    if(user){
-      const questions = randomQuestions.map(randomQuestion => {
-        const question = new QuizQuestion(
-          randomQuestion.q,
-          randomQuestion.a,
-          randomQuestion.i
-        );
-  
-        return question;
-      });
-  
-      const newQuiz = new Quiz(
-        uuidv4(),
-        questions
-      );
-  
-      setUser({
-        ...user,
-        listOfQuiz: [...user.listOfQuiz, newQuiz]
-      });
-  
-      setCurrentScreen(Screens.Menu);
-    }
-  }
-
   return (
     <div className={styles.container}>
       <h1>Quiz Results</h1>
@@ -94,7 +61,7 @@ function QuizResults({ setCurrentScreen }: QuizResultsProps) {
 
       <div className={styles.container_buttons}>
         <button
-          onClick={handleReturnToMenu}
+          onClick={() => setCurrentScreen(Screens.Menu)}
           className={styles.buttons}
         >
           Return to Menu
@@ -112,6 +79,9 @@ function QuizResults({ setCurrentScreen }: QuizResultsProps) {
 }
 
 export default QuizResults;
+
+
+
 
 
 // import { Screens } from "../../App";
