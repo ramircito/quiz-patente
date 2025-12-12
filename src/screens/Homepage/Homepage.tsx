@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Homepage.module.css';
 import { Screens } from '../../App';
 import { useAtom } from 'jotai';
-import { usersAtom, currentUser } from '../../states/userAtom';
+import { currentUserAtom } from '../../states/userAtom';
 import { User } from '../../models/user';
 
 import logoImage from '../../assets/logo_quizApp.png';
@@ -15,8 +15,7 @@ type HomepageProps = {
 function Homepage({ setCurrentScreen }: HomepageProps) {
   const [name, setName] = useState('');
   const [warning, setWarning] = useState('');
-  const [users, setUsers] = useAtom(usersAtom);
-  const [current, setCurrent] = useAtom(currentUser);
+  const [currentUser, setCurrentUserAtom] = useAtom(currentUserAtom);
 
   const goToDashboard = () => {
     if (!name.trim()) {
@@ -24,28 +23,22 @@ function Homepage({ setCurrentScreen }: HomepageProps) {
       return;
     }
 
-
     setWarning('');
 
     // Controllo se l'utente esiste già
-    let existingUser = users.find(user => user.name === name.trim());
+    const existingUser = currentUser;
 
     if (!existingUser) {
       // Crea nuovo utente
-      existingUser = new User(name.trim());
-      setUsers([...users, existingUser]);
-      console.log("Nuovo utente creato:", existingUser);
+      const newUser = new User(name.trim());
+      setCurrentUserAtom(newUser);
+      console.log("Nuovo utente creato:", newUser.name);
     } else {
-      console.log("Utente esistente trovato:", existingUser);
+      console.log("Utente esistente trovato:", existingUser.name);
     }
-
-    // Imposta utente corrente
-    setCurrent(existingUser);
 
     // Vai al menu/dashboard
     setCurrentScreen(Screens.Menu);
-
-
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,30 +51,37 @@ function Homepage({ setCurrentScreen }: HomepageProps) {
     }
   };
 
+  useEffect(() => {
+    // Se l'utente è già loggato, vai direttamente al menu
+    if (currentUser) {
+      setCurrentScreen(Screens.Menu);
+    }
+  }, [currentUser, setCurrentScreen]);
+
   return (
-  <div className={styles.container}>
-    <div className={styles.logoContainer}>
-    <img src={logoImage} alt="logo_quizApp" className={styles.logo} />
+    <div className={styles.container}>
+      <div className={styles.logoContainer}>
+        <img src={logoImage} alt="logo_quizApp" className={styles.logo} />
+      </div>
+      <h1>Welcome to RamiRace's license lab!!</h1> 
+      <p>Test your knowledge and prepare for your Italian driving license exam!</p> 
+      <span>Click the button on top to get started</span> 
+      <p>What's your name?</p> 
+      <input
+        type="text"
+        value={name}
+        onChange={handleChange}
+        className={styles.input}
+        placeholder="Insert your name..."
+      />
+      {warning && <p className={styles.warning}>{warning}</p>} 
+      <button
+        className={styles.bottom__button}
+        onClick={goToDashboard}
+      >
+        Go to Dashboard →
+      </button>
     </div>
-
-
-
-    <h1>Welcome to RamiRace's license lab!!</h1> 
-    <p>Test your knowledge and prepare for your Italian driving license exam!</p> 
-    <span>Click the button on top to get started</span> 
-    <p>What's your name?</p> 
-    <input
-    type="text"
-    value={name}
-    onChange={handleChange}
-    className={styles.input}
-    placeholder="Insert your name..."
-  />
-    {warning && <p className={styles.warning}>{warning}</p>} <button
-      className={styles.bottom__button}
-      onClick={goToDashboard}
-    >
-      Go to Dashboard → </button> </div>
   );
 }
 

@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { currentUser } from "../../states/userAtom";
+import { currentUserAtom } from "../../states/userAtom";
 import styles from "./Menu.module.css";
 import { Screens } from "../../App";
 import { useQuiz } from "../../Providers/QuizProvider";
@@ -9,7 +9,7 @@ type MenuProps = {
 };
 
 function Menu({ setCurrentScreen }: MenuProps) {
-  const [user, setUser] = useAtom(currentUser);  
+  const [user, setUser] = useAtom(currentUserAtom);  
   const { resetQuiz } = useQuiz();
 
   const handleLogout = () => {
