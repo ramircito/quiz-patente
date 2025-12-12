@@ -5,7 +5,7 @@ import { useAtom } from 'jotai';
 import { usersAtom, currentUser } from '../../states/userAtom';
 import { User } from '../../models/user';
 
-import logoImage from '../../assets/logo_quiz_app.png';
+import logoImage from '../../assets/logo_quizApp.png';
 
 
 type HomepageProps = {
@@ -61,7 +61,7 @@ function Homepage({ setCurrentScreen }: HomepageProps) {
   return (
   <div className={styles.container}>
     <div className={styles.logoContainer}>
-    <img src={logoImage} alt="logo_quiz_app" className={styles.logo} />
+    <img src={logoImage} alt="logo_quizApp" className={styles.logo} />
     </div>
 
 
