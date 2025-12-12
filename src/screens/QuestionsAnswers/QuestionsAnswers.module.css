@@ -3,11 +3,12 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    min-height: 100%;
-    background: linear-gradient(135deg, #0a1a2a, #112233); /* blu/viola coerente */
+    height: 100%;
+    background: linear-gradient(135deg, #0a1a2a, #112233); 
     color: #eaf7ff;
     row-gap: 50px;
     font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    overflow: hidden;
 }
 
 .container h1 {
@@ -20,7 +21,7 @@
 
 
 .previous__button {
-    background: linear-gradient(135deg, #3399ff, #00cfff); /* gradient blu/acquamarina */
+    background: linear-gradient(135deg, #3399ff, #00cfff);
     color: #fff;
     padding: 14px 32px;
     border-radius: 20px;
@@ -45,7 +46,7 @@
 
 .questions_list {
     width: 75%;
-    max-height: 70vh;
+    height: 70vh;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -132,8 +133,7 @@
     color: #8B0000;
 }
 
-/* ------------------------------- */
-/* 🔹 ANIMAZIONI */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -150,8 +150,6 @@
     50% { transform: scale(1.02); }
 }
 
-/* ------------------------------- */
-/* 📱 RESPONSIVE */
 @media screen and (max-width: 600px) {
     .questions_list {
         width: 90%;
@@ -171,3 +169,5 @@
         padding: 12px 24px;
     }
 }
+
+
