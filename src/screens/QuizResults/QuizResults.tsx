@@ -31,6 +31,7 @@ function QuizResults({ setCurrentScreen }: QuizResultsProps) {
       return "Better next time, loser XD";
     }
     
+    // eslint-disable-next-line react-hooks/purity
     const randomIndex = Math.floor(Math.random() * sentences.length);
     return sentences[randomIndex].sentence;
   }
