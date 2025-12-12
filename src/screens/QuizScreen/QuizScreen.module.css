@@ -285,7 +285,7 @@
         background-color: #00cfff;
     }
 
-    /* --------- BOTTONI CAMBIO DOMANDA ---------- */
+
     .optionBox {
         flex-direction: row;          /* sempre in riga */
         column-gap: 10px;             /* distanza tra bottoni */
