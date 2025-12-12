@@ -1,22 +1,28 @@
 import { useEffect, useRef } from 'react';
 import { Screens } from '../../App';
 import styles from './QuestionsAnswers.module.css';
-import { useQuiz } from '../../Providers/QuizProvider';
+import { useAtomValue } from 'jotai';
+import { currentUserAtom } from '../../states/userAtom';
+import { currentQuizIndexAtom } from '../../states/quizAtoms';
 
 type QuestionsAnswersProps = {
     setCurrentScreen: (screen: Screens) => void;
 }
 
 function QuestionsAnswers({ setCurrentScreen }: QuestionsAnswersProps) {
-    const { randomQuestions, answers } = useQuiz();
     const questionsListRef = useRef<HTMLDivElement>(null);
+    const currentUser = useAtomValue(currentUserAtom);
+    const currentQuizIndex = useAtomValue(currentQuizIndexAtom);
+
+    const randomQuestions = currentUser?.quizList[currentQuizIndex - 1]?.questions ?? [];
+    const answers = currentUser?.quizList[currentQuizIndex - 1]?.questions.map(q => q.user_answer) ?? [];
 
     // Scroll all'inizio quando le domande sono caricate
     useEffect(() => {
         if (questionsListRef.current) {
             questionsListRef.current.scrollTop = 0;
         }
-    }, [randomQuestions]);
+    }, []);
 
     if (!randomQuestions.length) return <h1>Loading questions...</h1>;
 
@@ -27,7 +33,7 @@ function QuestionsAnswers({ setCurrentScreen }: QuestionsAnswersProps) {
             <div ref={questionsListRef} className={styles.questions_list}>
                 {randomQuestions.map((q, index) => {
                     const userAnswer = answers[index];
-                    const isCorrect = userAnswer === q.a;
+                    const isCorrect = userAnswer === q.correct_answer;
 
                     return (
                         <div
@@ -35,11 +41,11 @@ function QuestionsAnswers({ setCurrentScreen }: QuestionsAnswersProps) {
                             className={`${styles.question_card} ${isCorrect ? styles.correct : styles.incorrect}`}
                         >
                             <h3>Question {index + 1}</h3>
-                            <p className={styles.question_text}>{q.q}</p>
+                            <p className={styles.question_text}>{q.question}</p>
 
-                            {q.img && (
+                            {q.imageUrl && (
                                 <img
-                                    src={q.img.startsWith('src/assets') ? q.img : 'src/assets' + q.img}
+                                    src={q.imageUrl}
                                     alt={`Question ${index + 1}`}
                                     className={styles.question_image}
                                 />
@@ -49,7 +55,7 @@ function QuestionsAnswers({ setCurrentScreen }: QuestionsAnswersProps) {
                                 <strong>Your Answer:</strong> {userAnswer !== null ? userAnswer.toString().toUpperCase() : 'No answer'}
                             </p>
                             <p>
-                                <strong>Correct Answer:</strong> {q.a.toString().toUpperCase()}
+                                <strong>Correct Answer:</strong> {q.correct_answer.toString().toUpperCase()}
                             </p>
                         </div>
                     );

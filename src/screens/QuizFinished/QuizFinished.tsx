@@ -1,11 +1,30 @@
+import { useAtom, useAtomValue } from 'jotai';
 import { Screens } from '../../App';
+import { currentUserAtom } from '../../states/userAtom';
 import styles from './QuizFinished.module.css';
+import { currentQuizAtom } from '../../states/quizAtoms';
 
 type QuizFinishedProps = {
   setCurrentScreen: (screen: Screens) => void;
 };
 
 function QuizFinished({ setCurrentScreen }: QuizFinishedProps) {
+  const [ , setCurrentUser] = useAtom(currentUserAtom);
+  const currentQuiz = useAtomValue(currentQuizAtom);
+
+  function handleFinishQuiz() {
+    setCurrentUser((user) => {
+      if(!user || !currentQuiz) return null;
+
+      // Salva il quiz corrente nella lista dei quiz dell'utente
+      if (user) user.quizList.push(currentQuiz);
+      
+      return user;
+    });
+
+    setCurrentScreen(Screens.QuizResults);
+  }
+
   return (
     <div className={styles.container}>
       <h1>WARNING</h1>
@@ -14,7 +33,7 @@ function QuizFinished({ setCurrentScreen }: QuizFinishedProps) {
       </h2>
       <h2>This action is irreversible.</h2>
       <button 
-        onClick={() => setCurrentScreen(Screens.QuizResults)}
+        onClick={() => handleFinishQuiz()}
         className={styles.buttonFinish}
       >
         FINISH QUIZ

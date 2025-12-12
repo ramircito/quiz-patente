@@ -1,26 +1,45 @@
 import { Screens } from "../../App";
 import styles from "./QuizResults.module.css";
-import { useQuiz } from "../../Providers/QuizProvider";
 import resultSentences from "../../assets/resultSentences.json";
+import { currentUserAtom } from "../../states/userAtom";
+import { useAtomValue } from "jotai";
+import { currentQuizIndexAtom } from "../../states/quizAtoms";
 
 type QuizResultsProps = {
   setCurrentScreen: (screen: Screens) => void;
 };
 
 function QuizResults({ setCurrentScreen }: QuizResultsProps) {
-  const { answers, randomQuestions } = useQuiz();
+  const currentUser = useAtomValue(currentUserAtom);
+  const currentQuizIndex = useAtomValue(currentQuizIndexAtom);
 
-  if (!randomQuestions.length) {
+  if (!currentUser?.quizList.length) {
     return <h1>Loading results...</h1>;
   }
 
-  const correctCount = answers.reduce((acc, ans, i) => {
-    if (ans === randomQuestions[i].a) return acc + 1;
-    return acc;
+  console.log('currentQuizIndex:', currentQuizIndex);
+  console.log('currentUser.quizList: ', currentUser.quizList);
+  console.log('currentUser: ', currentUser);
+  const quiz =
+    currentUser.quizList[currentQuizIndex] ?? currentUser.quizList.at(-1);
+
+  if (!quiz) {
+    return <h1>Loading results...</h1>;
+  }
+
+  const totalQuestions = quiz.questions.length;
+
+  // Count a question as correct only if the user actually answered it (true/false).
+  const correctCount = quiz.questions.reduce((acc, q) => {
+    if (q.user_answer === null) return acc;
+    return q.user_answer === q.correct_answer ? acc + 1 : acc;
   }, 0);
 
-  const errors = answers.length - correctCount;
-  const percentage = Math.round((correctCount / answers.length) * 100);
+  // Treat unanswered as wrong for the final error count.
+  const errors = totalQuestions - correctCount;
+
+  const percentage =
+    totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
 
   const getRandomSentence = (quizErrors: number) => {
     const sentences = resultSentences.filter(sentence => {
@@ -56,7 +75,7 @@ function QuizResults({ setCurrentScreen }: QuizResultsProps) {
       <div className={styles.correct_answers_container}>
         <h2>CORRECT ANSWERS:</h2>
         <div className={styles.correct_answers_count}>
-          <h2>{correctCount}/{answers.length}</h2>
+          <h2>{correctCount}/{totalQuestions}</h2>
         </div>
       </div>
 

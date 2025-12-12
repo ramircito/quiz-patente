@@ -4,12 +4,12 @@ import Homepage from './screens/Homepage/Homepage';
 import Menu from './screens/Menu/Menu';
 import QuizScreen from './screens/QuizScreen/QuizScreen';
 import QuizFinished from './screens/QuizFinished/QuizFinished';
-import { QuizProvider } from "./Providers/QuizProvider";
+// import { QuizProvider } from "./Providers/QuizProvider";
 import { ThemeProvider } from "./Providers/ThemeProvider";
 import QuizResults from './screens/QuizResults/QuizResults';
 import QuestionsAnswers from './screens/QuestionsAnswers/QuestionAnswers';
 
-
+// eslint-disable-next-line react-refresh/only-export-components
 export enum Screens {
   Homepage,
   Menu,
@@ -17,16 +17,13 @@ export enum Screens {
   QuizFinished,
   QuizResults,
   QuestionsAnswers
-
 }
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState<Screens>(Screens.Homepage);
 
   return (
-
     <ThemeProvider>
-      <QuizProvider>
         <div className={styles.container}>
           {currentScreen === Screens.Homepage && <Homepage setCurrentScreen={setCurrentScreen} />}
           {currentScreen === Screens.Menu && <Menu setCurrentScreen={setCurrentScreen} />}
@@ -35,7 +32,6 @@ function App() {
           {currentScreen === Screens.QuizResults && <QuizResults setCurrentScreen={setCurrentScreen} />}
           {currentScreen === Screens.QuestionsAnswers && <QuestionsAnswers setCurrentScreen={setCurrentScreen} />}
         </div>
-      </QuizProvider>
     </ThemeProvider>
   )
 }
