@@ -99,7 +99,7 @@ export default QuestionsAnswers;
 // import { Screens } from "../../App";
 // import styles from "./QuestionsAnswers.module.css";
 // import { useAtom } from "jotai";
-// import { currentUser } from "../../states/userAtom";
+// import { currentUserAtom } from "../../states/userAtom";
 // import { useQuiz } from "../../Providers/QuizProvider";
 
 // type Props = {
@@ -108,7 +108,7 @@ export default QuestionsAnswers;
 // };
 
 // function QuestionsAnswers({ setCurrentScreen, screen }: Props) {
-//   const [user] = useAtom(currentUser);
+//   const [user] = useAtom(currentUserAtom);
 //   const { randomQuestions, answers } = useQuiz();
 
 //   if (screen.quizId) {

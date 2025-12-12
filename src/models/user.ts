@@ -1,28 +1,8 @@
-export class Quiz {
-    question: string;
-    correct_answer: boolean;
-    imageUrl: string;
-    user_answer: boolean;
-
-    constructor(
-        question: string,
-        correct_answer: boolean,
-        imageUrl: string,
-        user_answer: boolean,
-    ) {
-        this.question = question;
-        this.correct_answer = correct_answer;
-        this.imageUrl = imageUrl;
-        this.user_answer = user_answer;
-    }
-
+import type { Quiz } from "./quiz";
     
-    }
-    
-    export class User {
+export class User {
     name: string;
     quizList: Array<Quiz>;
-    
 
     constructor(
         name: string,
@@ -30,5 +10,4 @@ export class Quiz {
         this.name = name;
         this.quizList = new Array<Quiz>();
     }
-    
-    }
+}
