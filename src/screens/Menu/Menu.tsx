@@ -33,13 +33,13 @@ function Menu({ setCurrentScreen }: MenuProps) {
         </p>
       </div>
       <div className={styles.quizBox}>
-        {user?.quizList.map((quiz, index) => (
+        {user?.quizList.map((quiz) => (
           <button
             key={quiz.id}
             className={styles.quizHistory}
             onClick={() => {
               setCurrentQuiz(quiz);
-              setCurrentQuizIndex(index);
+              setCurrentQuizIndex(parseInt(quiz.id));
               setCurrentScreen(Screens.QuizResults);
             }}
           >

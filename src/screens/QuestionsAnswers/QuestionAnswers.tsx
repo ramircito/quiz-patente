@@ -14,8 +14,14 @@ function QuestionsAnswers({ setCurrentScreen }: QuestionsAnswersProps) {
     const currentUser = useAtomValue(currentUserAtom);
     const currentQuizIndex = useAtomValue(currentQuizIndexAtom);
 
-    const randomQuestions = currentUser?.quizList[currentQuizIndex - 1]?.questions ?? [];
-    const answers = currentUser?.quizList[currentQuizIndex - 1]?.questions.map(q => q.user_answer) ?? [];
+    const quizId = currentQuizIndex.toString();
+
+    const currentQuiz = currentUser?.quizList.find(
+        (quiz) => quiz.id === quizId
+    );
+
+    const randomQuestions = currentQuiz?.questions ?? [];
+    const answers = currentQuiz?.questions.map(q => q.user_answer) ?? [];
 
     // Scroll all'inizio quando le domande sono caricate
     useEffect(() => {
