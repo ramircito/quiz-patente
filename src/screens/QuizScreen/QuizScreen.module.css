@@ -191,6 +191,7 @@
 }
 
 
+
 .response__container {
     width: 100%;
     display: flex;
@@ -234,16 +235,35 @@
 }
 
 
+
 @media screen and (max-width: 600px) {
 
     .container {
-        padding: 12px;
-        row-gap: 12px;
+        padding: 0px;
+        row-gap: 8px;
+    }
+
+    .container h1 {
+        font-size: medium;
+
+    }
+
+    .container h2 {
+        font-size: medium;
+
+    }
+
+    .container h3 {
+        font-size: x-large;
+    }
+
+    .container p {
+        font-size: small;
     }
 
     .finishButton {
-        font-size: 18px;
-        padding: 16px 20px;
+        font-size: medium;
+        padding: 8px 20px;
     }
 
     .checkpointBox {
@@ -257,48 +277,49 @@
 
     .question__container {
         flex-direction: column;
-        row-gap: 16px;
+        row-gap: 0px;
     }
 
     .question_count_text { order: 1; }
     .question__side__container img { 
-        order: 2;
-        max-width: 100%;
-        height: auto;
+        order: 0;
+        max-width: 75px;
+        max-height: 75px;
         object-fit: contain;
     }
-    .question_description_text { order: 3; }
+    .question_description_text { order: 1; }
 
     .response__container {
         flex-direction: row; 
         flex-wrap: wrap;    
-        column-gap: 12px;
-        row-gap: 12px;
-        order: 4;
+        column-gap: 0px;
+        row-gap: 0px;
+        order: 1;
     }
 
     .response__button__true,
     .response__button__false {
-        flex: 1 1 48%; 
-        padding: 28px;
-        font-size: 18px;
-        background-color: #00cfff;
+        flex: 1; 
+        padding: 20px;
+        font-size: larger;
+        background-color: #fd0000;
+    
     }
 
 
     .optionBox {
-        flex-direction: row;          /* sempre in riga */
-        column-gap: 10px;             /* distanza tra bottoni */
-        flex-wrap: wrap;              /* si adatta se necessario */
-        order: 5;
+        flex-direction: row;         
+        column-gap: 2px;            
+        flex-wrap: wrap;             
+        order: 2;
     }
 
     .controller__button,
     .controller__button_directions {
-        flex: 1 1 calc(50% - 10px);  /* due bottoni affiancati senza scrollbar */
-        max-width: calc(50% - 10px); 
-        min-width: 120px;            /* per non diventare troppo piccoli */
-        padding: 28px;
+        flex: 1;
+        max-width: 100%;           
+        padding: 20px;
         box-sizing: border-box;
     }
-}
+} 
+

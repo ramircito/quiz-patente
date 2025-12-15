@@ -1,188 +1,13 @@
-/* .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #0a1a2a, #112233); 
-    color: #eaf7ff;
-    row-gap: 50px;
-    font-family: 'Roboto', Helvetica, Arial, sans-serif;
-    overflow: hidden;
-}
 
-.container h1 {
-    font-family: "Poppins", Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 50px;
-    margin-top: 30px;
-    text-align: center;
-    text-shadow: 0 5px 15px rgba(0,0,50,0.5);
-}
-
-
-.previous__button {
-    background: linear-gradient(135deg, #3399ff, #00cfff);
-    color: #fff;
-    padding: 14px 32px;
-    border-radius: 20px;
-    border: none;
-    font-family: inherit;
-    cursor: pointer;
-    box-shadow: 0 6px 18px rgba(0,0,50,0.35);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.25s ease;
-    margin-top: 25px;
-}
-
-.previous__button:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 28px rgba(0,0,50,0.5);
-    background: linear-gradient(135deg, #66b3ff, #00e0ff);
-}
-
-.previous__button:active {
-    transform: translateY(0);
-    box-shadow: 0 4px 10px rgba(0,0,50,0.25);
-}
-
-.questions_list {
-    width: 75%;
-    height: 70vh;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    justify-content: flex-start;
-    background-color: #1f2a44a0; 
-    border: solid 5px #3b3b3b39;
-    border-radius: 12px;
-    padding: 15px;
-}
-
-.questions_list::-webkit-scrollbar {
-    width: 8px;
-}
-
-.questions_list::-webkit-scrollbar-thumb {
-    background: #3399ff;
-    border-radius: 12px;
-}
-
-.questions_list::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.questions_list::-webkit-scrollbar-thumb:hover {
-    background: #66b3ff;
-}
-
-
-.question_card {
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
-    background-color: #2e2e50; 
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 8px 20px rgba(0,0,50,0.4);
-    animation: fadeIn 0.5s ease;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.question_card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 25px rgba(0,0,50,0.5);
-}
-
-.question_card h3 {
-    margin: 0 0 12px 0;
-    font-size: 25px;
-    color: #ffff6a;
-    text-shadow: 0 2px 6px rgba(0,0,50,0.4);
-}
-
-.question_text {
-    font-size: 1.1rem;
-    margin-bottom: 12px;
-    color: #00132f;
-}
-
-.question_image {
-    max-width: 100%;
-    max-height: 150px;
-    border-radius: 12px;
-    margin-bottom: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,50,0.3);
-    object-fit: contain;
-}
-
-.question_card p {
-    font-size: 1rem;
-    margin: 6px 0;
-}
-
-
-.correct {
-    border: 2px solid #00c851;
-    background-color: #e0f8e0;
-    color: #006400;
-}
-
-.incorrect {
-    border: 2px solid #ff3547;
-    background-color: #f8e0e0;
-    color: #8B0000;
-}
-
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.02); }
-}
-
-@media screen and (max-width: 600px) {
-    .questions_list {
-        width: 90%;
-        gap: 12px;
-    }
-
-    .question_card h3 {
-        font-size: 20px;
-    }
-
-    .question_text {
-        font-size: 1rem;
-    }
-
-    .previous__button {
-        font-size: 16px;
-        padding: 12px 24px;
-    }
-}
-
- */
-
-
-
- /* --- CONTAINER GENERALE --- */
+/* --- CONTAINER GENERALE --- */
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #0a1a2a, #112233);
-    color: #eaf7ff;
+    height: 100vh;
+    background: linear-gradient(135deg, #0b1d33, #13294b);
+    color: #e6f0ff;
     row-gap: 50px;
     font-family: 'Roboto', Helvetica, Arial, sans-serif;
     overflow: hidden;
@@ -195,12 +20,14 @@
     to   { opacity: 1; transform: translateY(0); }
 }
 
+/* --- TITOLO --- */
 .container h1 {
     font-family: "Poppins", Verdana, Geneva, Tahoma, sans-serif;
     font-size: 50px;
     margin-top: 30px;
     text-align: center;
-    text-shadow: 0 5px 15px rgba(0,0,50,0.5);
+    color: #e6f0ff;
+    text-shadow: 0 4px 14px rgba(0,160,255,0.45);
     animation: softGlow 2.5s infinite ease-in-out;
 }
 
@@ -212,7 +39,7 @@
 
 /* --- BOTTONE PRECEDENTE --- */
 .previous__button {
-    background: linear-gradient(135deg, #3399ff, #00cfff);
+    background: linear-gradient(135deg, #3399ff, #1e78d6);
     color: #fff;
     padding: 14px 32px;
     border-radius: 20px;
@@ -232,7 +59,7 @@
     transform: translateY(-4px) scale(1.03);
     letter-spacing: 1px;
     box-shadow: 0 12px 28px rgba(0,0,50,0.5);
-    background: linear-gradient(135deg, #66b3ff, #00e0ff);
+    background: linear-gradient(135deg, #5ab2ff, #2f8cff);
 }
 
 .previous__button:active {
@@ -240,24 +67,25 @@
     box-shadow: 0 4px 10px rgba(0,0,50,0.25);
 }
 
-
 /* --- LISTA DOMANDE --- */
+.question_list_container {
+    width: 90%;
+    height: 75%;
+    display: flex;
+    overflow: hidden;
+}
+
 .questions_list {
-    width: 75%;
-    height: 70vh;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 20px;
     justify-content: flex-start;
-
-    background: rgba(25, 36, 70, 0.45);
+    background: rgba(19,36,75,0.85);
     backdrop-filter: blur(10px);
-    border: solid 5px rgba(255,255,255,0.08);
-
+    border: 2px solid rgba(255,255,255,0.08);
     border-radius: 12px;
     padding: 15px;
-
     animation: fadeIn 0.5s ease-out;
     transition: box-shadow 0.4s ease;
 }
@@ -281,14 +109,13 @@
     background: #66b3ff;
 }
 
-
 /* --- CARD DOMANDE --- */
 .question_card {
     display: flex;
     flex-direction: column;
     row-gap: 10px;
 
-    background: linear-gradient(135deg, #2c2c50, #2e2e50);
+    background: linear-gradient(135deg, #1f3b63, #243f6d);
     border-radius: 16px;
     padding: 20px;
     box-shadow: 0 8px 20px rgba(0,0,50,0.4);
@@ -303,34 +130,33 @@
 .question_card:hover {
     transform: translateY(-3px) scale(1.01);
     box-shadow: 0 12px 25px rgba(0,0,50,0.5);
-    background: linear-gradient(135deg, #34345c, #3a3a65);
+    background: linear-gradient(135deg, #2a4a78, #305286);
 }
 
-/* card glow quando si passa sopra */
+/* Card glow quando si passa sopra */
 .question_card:hover h3 {
     text-shadow: 0 0 10px rgba(255, 255, 150, 0.9);
 }
 
+/* Titolo domanda */
 .question_card h3 {
     margin: 0 0 12px 0;
     font-size: 25px;
-    color: #ffff6a;
+    color: #ffe066;
     transition: text-shadow 0.25s ease;
 }
 
-
-/* --- TESTO --- */
+/* --- TESTO DOMANDA --- */
 .question_text {
     font-size: 1.1rem;
     margin-bottom: 12px;
-    color: #00132f;
+    color: #e6f0ff;
     transition: color 0.25s ease;
 }
 
 .question_card:hover .question_text {
-    color: #e8f3ff;
+    color: #ffffff;
 }
-
 
 /* --- IMMAGINE DOMANDA --- */
 .question_image {
@@ -339,7 +165,6 @@
     border-radius: 12px;
     margin-bottom: 12px;
     box-shadow: 0 4px 12px rgba(0,0,50,0.3);
-
     transition: transform 0.3s ease, filter 0.3s ease;
     object-fit: contain;
 }
@@ -351,16 +176,16 @@
 
 /* --- CORRECT / INCORRECT --- */
 .correct {
-    border: 2px solid #00c851;
-    background-color: #e0f8e0;
-    color: #006400;
+    border: 2px solid #2ecc71;
+    background-color: rgba(46,204,113,0.15);
+    color: #d5ffe6;
     animation: pulse 0.6s ease 1;
 }
 
 .incorrect {
-    border: 2px solid #ff3547;
-    background-color: #f8e0e0;
-    color: #8B0000;
+    border: 2px solid #e74c3c;
+    background-color: rgba(231,76,60,0.15);
+    color: #ffd6d6;
     animation: shake 0.45s ease;
 }
 
@@ -373,7 +198,6 @@
     100% { transform: translateX(0); }
 }
 
-
 /* --- ANIMAZIONI GENERALI --- */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(15px); }
@@ -384,7 +208,6 @@
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.02); }
 }
-
 
 /* --- RESPONSIVE --- */
 @media screen and (max-width: 600px) {
@@ -404,5 +227,9 @@
     .previous__button {
         font-size: 16px;
         padding: 12px 24px;
+    }
+
+    .container h1 {
+        font-size: larger;
     }
 }

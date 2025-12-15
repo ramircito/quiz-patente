@@ -35,37 +35,38 @@ function QuestionsAnswers({ setCurrentScreen }: QuestionsAnswersProps) {
     return (
         <div className={styles.container}>
             <h1>Review Questions & Answers</h1>
-
-            <div ref={questionsListRef} className={styles.questions_list}>
-                {randomQuestions.map((q, index) => {
-                    const userAnswer = answers[index];
-                    const isCorrect = userAnswer === q.correct_answer;
-
-                    return (
-                        <div
+            <div className={styles.question_list_container}>
+                <div ref={questionsListRef} className={styles.questions_list}>
+                    {randomQuestions.map((q, index) => {
+                        const userAnswer = answers[index];
+                        const isCorrect = userAnswer === q.correct_answer;
+                        
+                        return (
+                            <div
                             key={index}
                             className={`${styles.question_card} ${isCorrect ? styles.correct : styles.incorrect}`}
-                        >
-                            <h3>Question {index + 1}</h3>
-                            <p className={styles.question_text}>{q.question}</p>
+                            >
+                                <h3>Question {index + 1}</h3>
+                                <p className={styles.question_text}>{q.question}</p>
 
-                            {q.imageUrl && (
-                                <img
+                                {q.imageUrl && (
+                                    <img
                                     src={q.imageUrl}
                                     alt={`Question ${index + 1}`}
                                     className={styles.question_image}
-                                />
-                            )}
+                                    />
+                                )}
 
-                            <p>
-                                <strong>Your Answer:</strong> {userAnswer !== null ? userAnswer.toString().toUpperCase() : 'No answer'}
-                            </p>
-                            <p>
-                                <strong>Correct Answer:</strong> {q.correct_answer.toString().toUpperCase()}
-                            </p>
-                        </div>
-                    );
-                })}
+                                <p>
+                                    <strong>Your Answer:</strong> {userAnswer !== null ? userAnswer.toString().toUpperCase() : 'No answer'}
+                                </p>
+                                <p>
+                                    <strong>Correct Answer:</strong> {q.correct_answer.toString().toUpperCase()}
+                                </p>
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
 
             <button

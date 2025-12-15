@@ -5,7 +5,7 @@ import { useAtom } from 'jotai';
 import { currentUserAtom } from '../../states/userAtom';
 import { User } from '../../models/user';
 
-import logoImage from '../../assets/logo_quizApp.png';
+import logoImage from '../../assets/logo_quizApp3.png';
 
 
 type HomepageProps = {
@@ -61,11 +61,11 @@ function Homepage({ setCurrentScreen }: HomepageProps) {
   return (
     <div className={styles.container}>
       <div className={styles.logoContainer}>
-        <img src={logoImage} alt="logo_quizApp" className={styles.logo} />
+        <img src={logoImage} alt="logo_quizApp3" className={styles.logo} />
       </div>
-      <h1>Welcome to RamiRace's license lab!!</h1> 
+      <h1>Welcome to <span className={styles.race}>Race</span><span className={styles.go}>&GO</span> license lab!!</h1> 
       <p>Test your knowledge and prepare for your Italian driving license exam!</p> 
-      <span>Click the button on top to get started</span> 
+      <h2>Click the button on top to get started</h2> 
       <p>What's your name?</p> 
       <input
         type="text"

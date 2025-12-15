@@ -29,7 +29,6 @@ function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
     const newQuizId = (userQuizNumber >= 0 ? userQuizNumber + 1 : 1).toString();
     const newQuizQuestions: Array<QuizQuestion> = [];
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     randomQuestions.forEach((q: any) => {
       newQuizQuestions.push(
         new QuizQuestion(
@@ -134,7 +133,7 @@ function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
 
   return (
     <div className={styles.container}>
-      <h1>QUIZ N.1</h1>
+      <h1>QUIZ STARTED</h1>
 
       <h2 style={{ color: "#FFF600" }}>
         TIME LEFT: {minutes}:{seconds}

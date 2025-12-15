@@ -15,8 +15,6 @@ function QuizFinished({ setCurrentScreen }: QuizFinishedProps) {
   function handleFinishQuiz() {
     setCurrentUser((user) => {
       if(!user || !currentQuiz) return null;
-
-      // Salva il quiz corrente nella lista dei quiz dell'utente
       if (user) user.quizList.push(currentQuiz);
       
       return user;

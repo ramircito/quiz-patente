@@ -1,46 +1,38 @@
+ /* ==============================
+   MOBILE-FIRST OPTIMIZATION
+   Priorità: smartphone
+================================ */
+
 .container {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    min-height: 100dvh;
     background: linear-gradient(180deg, #1E2A3A 0%, #141C26 100%);
-    padding: 30px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
     color: #ffffff;
     box-sizing: border-box;
-    row-gap: 32px;
+    row-gap: 20px;
     justify-content: flex-start;
     font-family: 'Roboto', Helvetica, Arial, sans-serif;
-
-    /* upgrade */
-    transition: background 0.8s ease, backdrop-filter 0.6s ease;
-    backdrop-filter: blur(2px);
 }
 
-
+/* Header */
 .initialbox {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .greeting {
-    margin-bottom: 10px;
-    animation: fadeIn 1s ease forwards;
+    animation: fadeIn 0.8s ease forwards;
 }
 
 .greeting h2 {
-    font-size: 40px;
-    letter-spacing: 1px;
+    font-size: 26px;
     margin: 0;
+    text-align: center;
     color: #cce0ff;
-    text-shadow: 0 0 10px rgba(0, 102, 204, 0.45);
-
-    transition: transform 0.6s ease, text-shadow 0.6s ease;
-}
-
-.greeting h2:hover {
-    transform: translateY(-3px);
-    text-shadow: 0 0 16px rgba(0, 140, 255, 0.6);
 }
 
 .greeting span {
@@ -48,158 +40,136 @@
     font-weight: bold;
 }
 
-/* -----------------------------------------
-   QUIZ BOX WRAPPER
------------------------------------------ */
 .quizBox {
-    background: linear-gradient(160deg, #243447 0%, #1c2733 100%);
-    border-radius: 18px;
-    padding: 35px;
+    width: 90%;               /* larghezza fissa relativa al container */      
+    height: 400px;            /* altezza fissa centrale */
+    overflow-y: auto;         /* scroll verticale se contenuto supera l'altezza */
+    align-self: center;
     display: flex;
-    gap: 28px;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    flex-wrap: wrap;
-    margin-top: 15px;
+    padding: 16px;
+    row-gap: 14px;
+    border-radius: 16px;
+    background: linear-gradient(160deg, #243447 0%, #1c2733 100%);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
 
-    /* upgrade */
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
-    transition: background 0.6s ease, transform 0.5s ease, box-shadow 0.6s ease;
 }
 
-.quizBox:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.55);
-}
 
-/* -----------------------------------------
-   QUIZ CARDS
------------------------------------------ */
+/* Quiz cards */
+.quizHistory,
 .quizItem,
 .quizNew {
-    width: 170px;
-    height: 230px;
-    border-radius: 16px;
+    width: 100%;
+    height: 110px;
+    border-radius: 14px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 28px;
-    font-family: 'Roboto', sans-serif;
-    cursor: pointer;
-
-    /* smoother micro-animation */
-    transition: 
-        transform 0.45s cubic-bezier(.2, .7, .3, 1.2),
-        box-shadow 0.45s ease,
-        opacity 0.4s ease,
-        background 0.5s ease;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.30);
+    font-size: 20px;
+    font-weight: bold;
 }
 
-/* Regular quiz */
+button {
+    max-width: none;
+}
+
 .quizItem {
     background: linear-gradient(145deg, #cce0ff, #99c2ff);
-    font-weight: bold;
     color: #003366;
 }
 
-.quizItem:hover {
-    transform: translateY(-10px) scale(1.03);
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
-}
-
-/* “New quiz” card */
 .quizNew {
     background: linear-gradient(145deg, #66b2ff, #3399ff);
-    font-weight: bold;
-    justify-content: flex-start;
-    padding-left: 18px;
     color: #ffffff;
 }
 
-.quizNew:hover {
-    opacity: 0.97;
-    transform: translateY(-10px) scale(1.03);
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
-}
-
+/* Warning */
 .warning {
-    font-size: 15px;
+    font-size: 14px;
     color: #ff4c4c;
     text-align: center;
-    margin-top: 10px;
     font-weight: bold;
-    opacity: 0.9;
-    transition: opacity 0.4s ease;
 }
 
-.warning:hover {
-    opacity: 1;
-}
-
-
+/* Logout button */
 .buttonLogout {
+    width: 100%;
+    max-width: 320px;
+    align-self: center;
     background: linear-gradient(145deg, #004080, #003366);
     color: #ffffff;
     border: none;
     border-radius: 12px;
-    font-size: 26px;
+    font-size: 18px;
     font-weight: bold;
-    padding: 14px 32px;
-    cursor: pointer;
-
-    transition: 
-        background 0.5s ease,
-        transform 0.45s cubic-bezier(.2, .7, .3, 1.2),
-        box-shadow 0.45s ease;
-    align-self: center;
-    margin-top: 15px;
-    box-shadow: 0 7px 18px rgba(0, 0, 0, 0.30);
-}
-
-.buttonLogout:hover {
-    background: #00264d;
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 12px 22px rgba(0, 0, 0, 0.45);
+    padding: 12px 20px;
 }
 
 .buttonLogout:active {
-    transform: translateY(-2px);
+    transform: scale(0.97);
 }
 
-/* -----------------------------------------
-   RESPONSIVE
------------------------------------------ */
-@media (max-width: 600px) {
+/* ==============================
+   TABLET ≥ 600px
+================================ */
+@media (min-width: 600px) {
+
+    .container {
+        padding: 24px;
+        row-gap: 28px;
+    }
 
     .greeting h2 {
-        font-size: 30px;
-        text-align: center;
+        font-size: 34px;
+        text-align: left;
     }
 
     .quizBox {
-        flex-direction: column;
-        padding: 20px;
-        gap: 20px;
+        width: 70%;       /* più grande su tablet */
+        max-width: 500px;
+        height: 500px;    /* più alto */
+        padding: 28px;
+        gap: 22px;
     }
 
-    .quizItem, 
+    .quizItem,
     .quizNew {
         width: 100%;
-        height: 130px;
-        font-size: 22px;
+        height: 100%;
+        font-size: 24px;
+        align-self: center;
     }
 
     .buttonLogout {
         font-size: 22px;
-        padding: 10px 24px;
+        padding: 14px 28px;
     }
 }
 
-/* -----------------------------------------
-   KEYFRAME ANIMATIONS
------------------------------------------ */
+/* ==============================
+   DESKTOP ≥ 1024px
+================================ */
+@media (min-width: 1024px) {
+
+    .container {
+        padding: 30px;
+    }
+
+    .quizItem,
+    .quizNew {
+        width: 170px;
+        height: 230px;
+        font-size: 28px;
+        align-self: center;
+    }
+
+
+}
+
+/* Animation */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(8px); }
     to   { opacity: 1; transform: translateY(0); }
 }
