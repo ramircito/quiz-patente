@@ -2,20 +2,15 @@ import { useEffect, useState } from "react";
 import { Screens } from "../../App";
 import styles from "./Quizscreen.module.css";
 import JsonFile from "../../assets/quizPatenteB2023.json";
-
-import { useQuiz } from "../../Providers/QuizProvider";
+import { useAtom, useAtomValue } from "jotai";
+import { currentQuizAtom, currentQuizIndexAtom } from "../../states/quizAtoms";
+import { getRandomQuestions, NUMBER_OF_QUESTIONS } from "../../utils/quizUtils";
+import { currentUserAtom } from "../../states/userAtom";
+import { Quiz, QuizQuestion } from "../../models/quiz";
 
 type QuizScreenProps = {
   setCurrentScreen: (screen: Screens) => void;
 };
-
-type Question = {
-  q: string;
-  img: string;
-  a: boolean;
-};
-
-const NUMBER_OF_QUESTIONS = 30;
 
 function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
   const TOTAL_TIME = 30 * 60;
@@ -23,40 +18,30 @@ function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
   const [holdTimeout, setHoldTimeout] = useState<number | null>(null);
   const [holdInterval, setHoldInterval] = useState<number | null>(null);
   const [, setIsHolding] = useState(false);
-
-  const {
-    answers,
-    setAnswers,
-    randomQuestions,
-    setRandomQuestions,
-    currentQuestionIndex,
-    setCurrentQuestionIndex,
-  } = useQuiz();
-
-  function getAllQuestions(obj: any): Question[] {
-    const questions: Question[] = [];
-
-    for (const value of Object.values(obj)) {
-      if (Array.isArray(value)) {
-        questions.push(...value);
-      } else if (typeof value === "object") {
-        questions.push(...getAllQuestions(value));
-      }
-    }
-    return questions;
-  }
-
-  function getRandomQuestions(jsonFile: any): Question[] {
-    const allQuestions = getAllQuestions(jsonFile);
-    const shuffled = allQuestions.sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, NUMBER_OF_QUESTIONS);
-  }
+  const [currentQuiz, setCurrentQuiz] = useAtom(currentQuizAtom);
+  const currentUser = useAtomValue(currentUserAtom);
+  const [, setCurrentQuizIndex] = useAtom(currentQuizIndexAtom);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   useEffect(() => {
-    if (randomQuestions.length === 0) {
-      setRandomQuestions(getRandomQuestions(JsonFile));
-      setAnswers(Array(NUMBER_OF_QUESTIONS).fill(null));
-    }
+    const randomQuestions = getRandomQuestions(JsonFile);
+    const userQuizNumber = currentUser?.quizList.length ?? -1;
+    const newQuizId = (userQuizNumber >= 0 ? userQuizNumber + 1 : 1).toString();
+    const newQuizQuestions: Array<QuizQuestion> = [];
+
+    randomQuestions.forEach((q: any) => {
+      newQuizQuestions.push(
+        new QuizQuestion(
+          q.q,                 // question text
+          q.a,                 // correct answer (boolean)
+          q.img ? "src/assets" + q.img : "" // image url
+        )
+      );
+    });
+    const newQuiz = new Quiz(newQuizId, newQuizQuestions);
+    
+    setCurrentQuiz(newQuiz);
+    setCurrentQuizIndex(parseInt(newQuizId));
   }, []);
 
   // === TIMER ===
@@ -89,11 +74,14 @@ function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
 
   // === FUNZIONI DI CONTROLLO ===
   function handleAnswer(userAnswer: boolean) {
-    setAnswers((prev) => {
-      const updated = [...prev];
-      updated[currentQuestionIndex] = userAnswer;
-      return updated;
-    });
+    if (!currentQuiz) return;
+
+    const updatedQuiz = new Quiz(
+      currentQuiz.id,
+      currentQuiz.questions.map((q) => ({ ...q }))
+    );
+    updatedQuiz.questions[currentQuestionIndex].user_answer = userAnswer;
+    setCurrentQuiz(updatedQuiz);
   }
 
   function handleChangeQuestion(isNext: boolean) {
@@ -131,19 +119,21 @@ function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
   }
 
   function getImageForQuestion(index: number): string {
-    if (!randomQuestions.length) return "";
-    const question = randomQuestions[index];
-    return question.img ? "src/assets" + question.img : "";
+    if (!currentQuiz?.questions.length) return "";
+
+    const question = currentQuiz?.questions[index];
+
+    return question.imageUrl || "";
   }
 
-  if (!randomQuestions.length) return <h1>Loading quiz...</h1>;
+  if (!currentQuiz?.questions.length) return <h1>Loading quiz...</h1>;
 
   const minutes = String(Math.floor(timeLeft / 60)).padStart(2, "0");
   const seconds = String(timeLeft % 60).padStart(2, "0");
 
   return (
     <div className={styles.container}>
-      <h1>QUIZ N.1</h1>
+      <h1>QUIZ STARTED</h1>
 
       <h2 style={{ color: "#FFF600" }}>
         TIME LEFT: {minutes}:{seconds}
@@ -170,9 +160,11 @@ function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
                 backgroundColor:
                   i === currentQuestionIndex
                     ? "#00cfff"
-                    : answers[i] !== null
-                    ? "#6FBF73"
-                    : "#edfaff3a",
+                    : currentQuiz?.questions[i].user_answer === true
+                    ? "#6FBF73" // answered TRUE
+                    : currentQuiz?.questions[i].user_answer === false
+                    ? "#ff4d4d" // answered FALSE
+                    : "#edfaff3a", // unanswered
               }}
             >
               <p>{i + 1}</p>
@@ -183,12 +175,10 @@ function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
         <div className={styles.question__container}>
           <div className={styles.question__side__container}>
             <span></span>
-            {getImageForQuestion(currentQuestionIndex) && (
               <img
                 src={getImageForQuestion(currentQuestionIndex)}
                 alt="Quiz question"
               />
-            )}
             <span></span>
           </div>
 
@@ -200,7 +190,7 @@ function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
             </div>
 
             <div className={styles.question_description_text}>
-              {randomQuestions[currentQuestionIndex].q}
+              {currentQuiz?.questions[currentQuestionIndex].question}
             </div>
 
             <div className={styles.response__container}>
@@ -208,7 +198,7 @@ function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
                 onClick={() => handleAnswer(true)}
                 style={{
                   backgroundColor:
-                    answers[currentQuestionIndex] === true ? "green" : "grey",
+                    currentQuiz?.questions[currentQuestionIndex].user_answer === true ? "green" : "grey",
                 }}
                 className={styles.response__button__true}
               >
@@ -219,7 +209,7 @@ function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
                 onClick={() => handleAnswer(false)}
                 style={{
                   backgroundColor:
-                    answers[currentQuestionIndex] === false ? "red" : "grey",
+                    currentQuiz?.questions[currentQuestionIndex].user_answer === false ? "red" : "grey",
                 }}
                 className={styles.response__button__false}
               >

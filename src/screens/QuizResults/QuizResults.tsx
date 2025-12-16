@@ -1,26 +1,45 @@
 import { Screens } from "../../App";
 import styles from "./QuizResults.module.css";
-import { useQuiz } from "../../Providers/QuizProvider";
 import resultSentences from "../../assets/resultSentences.json";
+import { currentUserAtom } from "../../states/userAtom";
+import { useAtomValue } from "jotai";
+import { currentQuizIndexAtom } from "../../states/quizAtoms";
 
 type QuizResultsProps = {
   setCurrentScreen: (screen: Screens) => void;
 };
 
 function QuizResults({ setCurrentScreen }: QuizResultsProps) {
-  const { answers, randomQuestions } = useQuiz();
+  const currentUser = useAtomValue(currentUserAtom);
+  const currentQuizIndex = useAtomValue(currentQuizIndexAtom);
 
-  if (!randomQuestions.length) {
+  if (!currentUser?.quizList.length) {
     return <h1>Loading results...</h1>;
   }
 
-  const correctCount = answers.reduce((acc, ans, i) => {
-    if (ans === randomQuestions[i].a) return acc + 1;
-    return acc;
+  console.log('currentQuizIndex:', currentQuizIndex);
+  console.log('currentUser.quizList: ', currentUser.quizList);
+  console.log('currentUser: ', currentUser);
+  const quiz =
+    currentUser.quizList[currentQuizIndex] ?? currentUser.quizList.at(-1);
+
+  if (!quiz) {
+    return <h1>Loading results...</h1>;
+  }
+
+  const totalQuestions = quiz.questions.length;
+
+  // Count a question as correct only if the user actually answered it (true/false).
+  const correctCount = quiz.questions.reduce((acc, q) => {
+    if (q.user_answer === null) return acc;
+    return q.user_answer === q.correct_answer ? acc + 1 : acc;
   }, 0);
 
-  const errors = answers.length - correctCount;
-  const percentage = Math.round((correctCount / answers.length) * 100);
+  // Treat unanswered as wrong for the final error count.
+  const errors = totalQuestions - correctCount;
+
+  const percentage =
+    totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
 
   const getRandomSentence = (quizErrors: number) => {
     const sentences = resultSentences.filter(sentence => {
@@ -56,7 +75,7 @@ function QuizResults({ setCurrentScreen }: QuizResultsProps) {
       <div className={styles.correct_answers_container}>
         <h2>CORRECT ANSWERS:</h2>
         <div className={styles.correct_answers_count}>
-          <h2>{correctCount}/{answers.length}</h2>
+          <h2>{correctCount}/{totalQuestions}</h2>
         </div>
       </div>
 
@@ -80,115 +99,3 @@ function QuizResults({ setCurrentScreen }: QuizResultsProps) {
 }
 
 export default QuizResults;
-
-
-
-
-
-// import { Screens } from "../../App";
-// import styles from "./QuizResults.module.css";
-// import { NUMBER_OF_QUESTIONS, useQuiz } from "../../Providers/QuizProvider";
-// import { useAtom } from "jotai";
-// import { currentUser } from "../../states/userAtom";
-// import { v4 as uuidv4 } from "uuid";
-// import { Quiz, QuizQuestion } from "../../models/quiz";
-
-// type QuizResultsProps = {
-//   setCurrentScreen: (screen: any) => void;
-//   screen: any;
-// };
-
-// function QuizResults({ setCurrentScreen, screen }: QuizResultsProps) {
-//   const { answers, randomQuestions } = useQuiz();
-//   const [user, setUser] = useAtom(currentUser);
-
-//   // SE APRO QUIZ DA MENU
-//   if (screen.quizId) {
-//     const quiz = user?.listOfQuiz.find(q => q.id === screen.quizId);
-//     if (!quiz) return <h1>Quiz not found</h1>;
-
-//     return (
-//       <div className={styles.container}>
-//         <h1>Quiz Results</h1>
-
-//         <h2>{quiz.getScore()}%</h2>
-//         <h3>{quiz.getCorrectAnswerCount()}/{NUMBER_OF_QUESTIONS} correct</h3>
-
-//         <button
-//           className={styles.buttons}
-//           onClick={() =>
-//             setCurrentScreen({
-//               name: Screens.QuestionsAnswers,
-//               quizId: quiz.id,
-//             })
-//           }
-//         >
-//           Review Answers
-//         </button>
-
-//         <button
-//           className={styles.buttons}
-//           onClick={() => setCurrentScreen({ name: Screens.Menu })}
-//         >
-//           Return to Menu
-//         </button>
-//       </div>
-//     );
-//   }
-
-//   // SE È UN QUIZ APPENA FINITO
-//   const correctCount = answers.reduce(
-//     (acc, ans, i) => (ans === randomQuestions[i].a ? acc + 1 : acc),
-//     0
-//   );
-
-
-//   const saveQuiz = () => {
-//     if (!user) return;
-
-//     const questions = randomQuestions.map(randomQuestion => {
-//       const question = new QuizQuestion(
-//         randomQuestion.q,
-//         randomQuestion.a,
-//         randomQuestion.i
-//       );
-
-//       return question;
-//     });
-
-//     const newQuiz = new Quiz(
-//       uuidv4(),
-//       questions
-//     );
-
-//     setUser({
-//       ...user,
-//       listOfQuiz: [...user.listOfQuiz, newQuiz]
-//     });
-
-//     setCurrentScreen({ name: Screens.Menu });
-//   };
-
-//   return (
-//     <div className={styles.container}>
-//       <h1>Quiz Results</h1>
-//       <button className={styles.buttons} onClick={saveQuiz}>
-//         Return to Menu
-//       </button>
-
-//       <button
-//         className={styles.buttons}
-//         onClick={() =>
-//           setCurrentScreen({
-//             name: Screens.QuestionsAnswers,
-//           })
-//         }
-//       >
-//         Review Answers
-//       </button>
-//     </div>
-//   );
-// }
-
-// export default QuizResults;
-
