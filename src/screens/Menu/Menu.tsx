@@ -3,6 +3,8 @@ import { currentUserAtom } from "../../states/userAtom";
 import styles from "./Menu.module.css";
 import { Screens } from "../../App";
 import { currentQuizAtom, currentQuizIndexAtom } from "../../states/quizAtoms";
+import { settingsAtom } from "../../states/settingsAtoms";
+import { Settings } from "../../models/settings";
 
 type MenuProps = {
   setCurrentScreen: (screen: Screens) => void;
@@ -12,6 +14,7 @@ function Menu({ setCurrentScreen }: MenuProps) {
   const [user, setUser] = useAtom(currentUserAtom);
   const [, setCurrentQuiz] = useAtom(currentQuizAtom);
   const [, setCurrentQuizIndex] = useAtom(currentQuizIndexAtom);
+  const [settings, setSettings] = useAtom(settingsAtom);
 
   const handleLogout = () => {
     setUser(null);
@@ -62,6 +65,56 @@ function Menu({ setCurrentScreen }: MenuProps) {
       >
         Log out
       </button>
+      <div className={styles.settings__container}>
+        <h3>Settings</h3>
+        <div className={styles.settings__option}>
+          <label>
+            <input 
+              type="checkbox"
+              checked={settings.darkMode}
+              onChange={(e) => {
+                setSettings(new Settings(
+                  e.target.checked,
+                  settings.language,
+                ));
+              }}
+            />
+            Dark Mode
+          </label>
+        </div>
+        <div className={styles.settings__option}>
+            <label>
+            <input 
+              type="radio"
+              name="language"
+              value="it"
+              checked={settings.language === 'it'}
+              onChange={() => {
+              setSettings(new Settings(
+                settings.darkMode,
+                'it',
+              ));
+              }}
+            />
+            Italian
+            </label>
+            <label>
+            <input 
+              type="radio"
+              name="language"
+              value="en"
+              checked={settings.language === 'en'}
+              onChange={() => {
+              setSettings(new Settings(
+                settings.darkMode,
+                'en',
+              ));
+              }}
+            />
+            English
+            </label>
+        </div>
+      </div>
     </div>
   );
 }

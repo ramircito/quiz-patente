@@ -10,7 +10,6 @@ import QuizResults from './screens/QuizResults/QuizResults';
 import QuestionsAnswers from './screens/QuestionsAnswers/QuestionAnswers';
 import { useAtomValue } from 'jotai';
 import { currentUserAtom } from './states/userAtom';
-
 // eslint-disable-next-line react-refresh/only-export-components
 export enum Screens {
   Undefined,
