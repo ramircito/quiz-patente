@@ -30,11 +30,12 @@ function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
     const newQuizQuestions: Array<QuizQuestion> = [];
 
     randomQuestions.forEach((q: any) => {
+      console.log('q.img: ', q.img);
       newQuizQuestions.push(
         new QuizQuestion(
           q.q,                 // question text
           q.a,                 // correct answer (boolean)
-          q.img ? "src/assets" + q.img : "" // image url
+          q.img ? "src/assets" + q.img : null // image url
         )
       );
     });
@@ -159,11 +160,9 @@ function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
               style={{
                 backgroundColor:
                   i === currentQuestionIndex
-                    ? "#00cfff"
-                    : currentQuiz?.questions[i].user_answer === true
-                    ? "#6FBF73" // answered TRUE
-                    : currentQuiz?.questions[i].user_answer === false
-                    ? "#ff4d4d" // answered FALSE
+                    ? "#00cfff" // current question
+                    : currentQuiz?.questions[i].user_answer === true || false
+                    ? "#00F" // answered
                     : "#edfaff3a", // unanswered
               }}
             >
@@ -173,14 +172,19 @@ function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
         </div>
 
         <div className={styles.question__container}>
-          <div className={styles.question__side__container}>
-            <span></span>
-              <img
-                src={getImageForQuestion(currentQuestionIndex)}
-                alt="Quiz question"
-              />
-            <span></span>
-          </div>
+            {(() => {
+                const imageSrc = getImageForQuestion(currentQuestionIndex);
+                return imageSrc ? (
+                  <div className={styles.question__side__container}>
+                    <span></span>
+                    <img
+                      src={imageSrc}
+                      alt="Quiz question"
+                    />
+                    <span></span>
+                  </div>
+                ) : null;
+              })()}
 
           <div className={styles.question__side__container}>
             <div className={styles.question_count_text}>
