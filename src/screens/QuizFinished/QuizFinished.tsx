@@ -1,5 +1,5 @@
 import { useAtom, useAtomValue } from 'jotai';
-import { Screens } from '../../App';
+import { Screens } from '../../models/screen';
 import { currentUserAtom } from '../../states/userAtom';
 import styles from './QuizFinished.module.css';
 import { currentQuizAtom } from '../../states/quizAtoms';
