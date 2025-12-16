@@ -1,13 +1,13 @@
 export class QuizQuestion { 
     question: string;
     correct_answer: boolean;
-    imageUrl: string;
+    imageUrl: string | null;
     user_answer: boolean | null;
 
     constructor (
         question: string,
         correct_answer: boolean,
-        imageUrl: string,
+        imageUrl: string | null = null,
     ) {
         this.question = question;
         this.correct_answer = correct_answer;
