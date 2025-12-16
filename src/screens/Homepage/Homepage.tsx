@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './Homepage.module.css';
 import { Screens } from '../../App';
 import { useAtom } from 'jotai';
@@ -25,16 +25,14 @@ function Homepage({ setCurrentScreen }: HomepageProps) {
 
     setWarning('');
 
-    // Controllo se l'utente esiste già
-    const existingUser = currentUser;
-
-    if (!existingUser) {
+    // se l'utente esiste già, usalo, altrimenti creane uno nuovo
+    if (!currentUser) {
       // Crea nuovo utente
       const newUser = new User(name.trim());
       setCurrentUserAtom(newUser);
       console.log("Nuovo utente creato:", newUser.name);
     } else {
-      console.log("Utente esistente trovato:", existingUser.name);
+      console.log("Utente esistente trovato:", currentUser.name);
     }
 
     // Vai al menu/dashboard
@@ -50,13 +48,6 @@ function Homepage({ setCurrentScreen }: HomepageProps) {
       setWarning('Maximum length is 40 characters');
     }
   };
-
-  useEffect(() => {
-    // Se l'utente è già loggato, vai direttamente al menu
-    if (currentUser) {
-      setCurrentScreen(Screens.Menu);
-    }
-  }, [currentUser, setCurrentScreen]);
 
   return (
     <div className={styles.container}>

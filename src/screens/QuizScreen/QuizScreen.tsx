@@ -29,6 +29,7 @@ function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
     const newQuizId = (userQuizNumber >= 0 ? userQuizNumber + 1 : 1).toString();
     const newQuizQuestions: Array<QuizQuestion> = [];
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     randomQuestions.forEach((q: any) => {
       console.log('q.img: ', q.img);
       newQuizQuestions.push(
