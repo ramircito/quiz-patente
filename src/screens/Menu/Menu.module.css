@@ -1,4 +1,4 @@
- /* ==============================
+/* ==============================
    MOBILE-FIRST OPTIMIZATION
    Priorità: smartphone
 ================================ */
@@ -42,7 +42,6 @@
     font-weight: bold;
 }
 
-
 .quizContainer {
     width: 100%;
     display: flex;
@@ -55,10 +54,10 @@
 }
 
 .quizBox {
-    width: 90%;               /* larghezza fissa relativa al container */      
+    width: 90%;
     height: auto;
-    max-height: 400px;            /* altezza fissa centrale */
-    overflow-y: auto;         /* scroll verticale se contenuto supera l'altezza */
+    max-height: 400px;
+    overflow-y: auto;
     align-self: center;
     display: flex;
     flex-direction: column;
@@ -68,9 +67,7 @@
     border-radius: 16px;
     background: linear-gradient(160deg, #243447 0%, #1c2733 100%);
     box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-
 }
-
 
 /* Quiz cards */
 .quizHistory,
@@ -78,26 +75,23 @@
 .quizNew {
     width: 100%;
     height: 110px;
-    border-radius: 14px;
+    border-radius: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 20px;
-    font-weight: bold;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    background-color: #1872cba0;
-    color: rgb(233, 233, 233);
+    font-weight: 700;
+    letter-spacing: 0.4px;
     cursor: pointer;
-}
-
-button {
-    max-width: none;
-}
-
-.button:hover {
-    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
-    background-color: #0c355ea0;
-
+    color: #ffffff;
+    background: linear-gradient(145deg, #1f6ecf, #155bb0);
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
 }
 
 .quizItem {
@@ -107,9 +101,27 @@ button {
 
 .quizNew {
     height: 70px;
-    width: 100%;
     background: linear-gradient(145deg, #66b2ff, #3399ff);
-    color: #ffffff;
+}
+
+/* Hover / focus */
+.quizHistory:hover,
+.quizItem:hover,
+.quizNew:hover {
+    transform: translateY(-3px) scale(1.015);
+    box-shadow:
+        0 10px 22px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Pressed (mobile feeling) */
+.quizHistory:active,
+.quizItem:active,
+.quizNew:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.35),
+        inset 0 3px 6px rgba(0, 0, 0, 0.25);
 }
 
 /* Warning */
@@ -128,16 +140,32 @@ button {
     background: linear-gradient(145deg, #004080, #003366);
     color: #ffffff;
     border: none;
-    border-radius: 12px;
+    border-radius: 18px;
     font-size: 18px;
     font-weight: bold;
     padding: 12px 20px;
     cursor: pointer;
+    box-shadow:
+        0 6px 16px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        background 0.15s ease;
 }
 
 .buttonLogout:hover {
-    background: #1e2f42;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    transform: translateY(-2px);
+    background: linear-gradient(145deg, #0055aa, #003b77);
+    box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.45);
+}
+
+.buttonLogout:active {
+    transform: translateY(1px);
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.35),
+        inset 0 3px 6px rgba(0, 0, 0, 0.25);
 }
 
 /* ==============================
@@ -151,16 +179,21 @@ button {
     }
 
     .greeting h2 {
-        font-size: 34px;
+        font-size: medium;
         text-align: left;
     }
 
+    .container p {
+        font-size: small;
+    }
+
     .quizBox {
-        width: 70%;       /* più grande su tablet */
+        width: 70%;
         max-width: 500px;
-        height: 500px;    /* più alto */
-        padding: 28px;
-        gap: 22px;
+        height: 30%;
+        max-height: 200px;
+        padding: px;
+        gap: 0px;
     }
 
     .quizItem,
@@ -169,11 +202,12 @@ button {
         height: 100px;
         font-size: 24px;
         align-self: center;
+        box-sizing: border-box;
     }
 
     .buttonLogout {
-        font-size: 22px;
-        padding: 14px 28px;
+        font-size:  small;
+        padding: 0px 0px;
     }
 
 }
@@ -195,7 +229,6 @@ button {
         align-self: center;
     }
 
-
 }
 
 /* Animation */
@@ -203,33 +236,3 @@ button {
     from { opacity: 0; transform: translateY(8px); }
     to   { opacity: 1; transform: translateY(0); }
 }
-
-/* ==============================
-   SETTINGS - ABSOLUTE POSITIONING
-================================ */
-
-/* .settings__container {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    row-gap: 12px;
-    color: #141C26;
-    bottom: 16px;
-    right: 16px;
-    padding: 12px;
-    border-radius: 24px;
-    background: whitesmoke;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-
-.settings__option {
-    padding: 8px 12px;
-    border-radius: 8px;
-    color: #1c2733;
-    font-size: 16px;
-    text-align: center;
-    cursor: pointer;
-} */

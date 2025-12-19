@@ -42,7 +42,6 @@ function QuizFinished({ setCurrentScreen }: QuizFinishedProps) {
       >
         GO BACK TO QUIZ
       </button>
-      
     </div>
   );
 }

@@ -11,3 +11,4 @@ export class User {
         this.quizList = new Array<Quiz>();
     }
 }
+

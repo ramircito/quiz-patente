@@ -4,26 +4,29 @@ import styles from "./Quizscreen.module.css";
 import JsonFile from "../../assets/quizPatenteB2023.json";
 import { useAtom, useAtomValue } from "jotai";
 import { currentQuizAtom, currentQuizIndexAtom } from "../../states/quizAtoms";
+import { quizTimerAtom } from "../../states/quizAtoms";
 import { getRandomQuestions, NUMBER_OF_QUESTIONS } from "../../utils/quizUtils";
 import { currentUserAtom } from "../../states/userAtom";
 import { Quiz, QuizQuestion } from "../../models/quiz";
+import { currentQuestionIndexAtom } from "../../states/quizAtoms";
 
 type QuizScreenProps = {
   setCurrentScreen: (screen: Screens) => void;
 };
 
 function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
-  const TOTAL_TIME = 30 * 60;
-  const [timeLeft, setTimeLeft] = useState(TOTAL_TIME);
   const [holdTimeout, setHoldTimeout] = useState<number | null>(null);
   const [holdInterval, setHoldInterval] = useState<number | null>(null);
   const [, setIsHolding] = useState(false);
   const [currentQuiz, setCurrentQuiz] = useAtom(currentQuizAtom);
   const currentUser = useAtomValue(currentUserAtom);
   const [, setCurrentQuizIndex] = useAtom(currentQuizIndexAtom);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [timeLeftAtom, setTimeLeftAtom] = useAtom(quizTimerAtom);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useAtom(currentQuestionIndexAtom);
+  
 
   useEffect(() => {
+    if (currentQuiz) return; // quiz già caricato
     const randomQuestions = getRandomQuestions(JsonFile);
     const userQuizNumber = currentUser?.quizList.length ?? -1;
     const newQuizId = (userQuizNumber >= 0 ? userQuizNumber + 1 : 1).toString();
@@ -49,7 +52,7 @@ function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
   // === TIMER ===
   useEffect(() => {
     const interval = setInterval(() => {
-      setTimeLeft((prev) => {
+      setTimeLeftAtom((prev) => {
         if (prev <= 1) {
           clearInterval(interval);
           setCurrentScreen(Screens.QuizResults);
@@ -58,9 +61,10 @@ function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
         return prev - 1;
       });
     }, 1000);
-
+  
     return () => clearInterval(interval);
-  }, []);
+  }, [setTimeLeftAtom, setCurrentScreen]);
+  
 
   // === SCROLL AUTOMATICO DEL CHECKPOINT CORRENTE ===
   useEffect(() => {
@@ -130,8 +134,8 @@ function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
 
   if (!currentQuiz?.questions.length) return <h1>Loading quiz...</h1>;
 
-  const minutes = String(Math.floor(timeLeft / 60)).padStart(2, "0");
-  const seconds = String(timeLeft % 60).padStart(2, "0");
+  const minutes = String(Math.floor(timeLeftAtom / 60)).padStart(2, "0");
+  const seconds = String(timeLeftAtom % 60).padStart(2, "0");
 
   return (
     <div className={styles.container}>
