@@ -7,7 +7,7 @@ export class QuizQuestion {
     constructor (
         question: string,
         correct_answer: boolean,
-        imageUrl: string | null = null,
+        imageUrl: string | null,
     ) {
         this.question = question;
         this.correct_answer = correct_answer;
