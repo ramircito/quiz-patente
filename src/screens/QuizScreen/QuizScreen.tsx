@@ -29,6 +29,7 @@ function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
     const newQuizId = (userQuizNumber >= 0 ? userQuizNumber + 1 : 1).toString();
     const newQuizQuestions: Array<QuizQuestion> = [];
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     randomQuestions.forEach((q: any) => {
       console.log('q.img: ', q.img);
       newQuizQuestions.push(
@@ -158,13 +159,17 @@ function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
               className={styles.checkpoint}
               onClick={() => setCurrentQuestionIndex(i)}
               style={{
+                color:
+                  i === currentQuestionIndex
+                    ? "#000" : "#cce0ff",
                 backgroundColor:
                   i === currentQuestionIndex
-                    ? "#00cfff" // current question
-                    : currentQuiz?.questions[i].user_answer === true || false
-                    ? "#00F" // answered
-                    : "#edfaff3a", // unanswered
+                    ? "#fff833" // corrente
+                    : currentQuiz.questions[i].user_answer !== null
+                    ? "#00F" // risposto (true O false)
+                    : "#edfaff3a", // non risposto
               }}
+              
             >
               <p>{i + 1}</p>
             </div>
@@ -172,19 +177,20 @@ function QuizScreen({ setCurrentScreen }: QuizScreenProps) {
         </div>
 
         <div className={styles.question__container}>
-            {(() => {
-                const imageSrc = getImageForQuestion(currentQuestionIndex);
-                return imageSrc ? (
-                  <div className={styles.question__side__container}>
-                    <span></span>
-                    <img
-                      src={imageSrc}
-                      alt="Quiz question"
-                    />
-                    <span></span>
-                  </div>
-                ) : null;
-              })()}
+                <div 
+                  className={styles.question__side__container}
+                  style={{backgroundColor: "#ffffff07"}}
+                >
+                  {(() => {
+                      const imageSrc = getImageForQuestion(currentQuestionIndex);
+                      return imageSrc ? (
+                          <img
+                            src={imageSrc}
+                            alt="Quiz question"
+                          />
+                        ) : null;
+                      })()}
+                </div>
 
           <div className={styles.question__side__container}>
             <div className={styles.question_count_text}>

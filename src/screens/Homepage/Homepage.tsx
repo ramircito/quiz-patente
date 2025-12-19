@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './Homepage.module.css';
 import { Screens } from '../../App';
 import { useAtom } from 'jotai';
@@ -25,16 +25,14 @@ function Homepage({ setCurrentScreen }: HomepageProps) {
 
     setWarning('');
 
-    // Controllo se l'utente esiste già
-    const existingUser = currentUser;
-
-    if (!existingUser) {
+    // se l'utente esiste già, usalo, altrimenti creane uno nuovo
+    if (!currentUser) {
       // Crea nuovo utente
       const newUser = new User(name.trim());
       setCurrentUserAtom(newUser);
       console.log("Nuovo utente creato:", newUser.name);
     } else {
-      console.log("Utente esistente trovato:", existingUser.name);
+      console.log("Utente esistente trovato:", currentUser.name);
     }
 
     // Vai al menu/dashboard
@@ -51,22 +49,15 @@ function Homepage({ setCurrentScreen }: HomepageProps) {
     }
   };
 
-  useEffect(() => {
-    // Se l'utente è già loggato, vai direttamente al menu
-    if (currentUser) {
-      setCurrentScreen(Screens.Menu);
-    }
-  }, [currentUser, setCurrentScreen]);
-
   return (
     <div className={styles.container}>
       <div className={styles.logoContainer}>
         <img src={logoImage} alt="logo_quizApp3" className={styles.logo} />
       </div>
       <h1>Welcome to <span className={styles.race}>Race</span><span className={styles.go}>&GO</span> license lab!!</h1> 
-      <p>Test your knowledge and prepare for your Italian driving license exam!</p> 
+      <h2>Test your knowledge and prepare for your Italian driving license exam!</h2> 
       <h2>Click the button on top to get started</h2> 
-      <p>What's your name?</p> 
+      <h3>What's your name?</h3> 
       <input
         type="text"
         value={name}
@@ -74,9 +65,9 @@ function Homepage({ setCurrentScreen }: HomepageProps) {
         className={styles.input}
         placeholder="Insert your name..."
       />
-      {warning && <p className={styles.warning}>{warning}</p>} 
+      {warning && <span className={styles.warning}>{warning}</span>} 
       <button
-        className={styles.bottom__button}
+        className={styles.button}
         onClick={goToDashboard}
       >
         Go to Dashboard →

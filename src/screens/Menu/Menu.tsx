@@ -13,55 +13,109 @@ function Menu({ setCurrentScreen }: MenuProps) {
   const [, setCurrentQuiz] = useAtom(currentQuizAtom);
   const [, setCurrentQuizIndex] = useAtom(currentQuizIndexAtom);
 
+
   const handleLogout = () => {
     setUser(null);
     setCurrentScreen(Screens.Homepage);
   };
 
-  function resetQuiz () {
+  function resetQuiz() {
     setCurrentQuiz(null);
   }
 
   return (
     <div className={styles.container}>
-      <div className={styles.initialbox}> 
+      <div className={styles.initialbox}>
         <div className={styles.greeting}>
-          <h2>Hello, <span>{user?.name}</span>!</h2>  
+          <h2>Hello, <span>{user?.name}</span>!</h2>
         </div>
+        <button
+          className={styles.buttonLogout}
+          onClick={handleLogout}
+        >
+          Log out
+        </button>
+      </div>
+      <div className={styles.quizContainer}>
         <p className={styles.warning}>
           🔔 REMEMBER THAT ONCE YOU BEGIN THE QUIZ, YOU CANNOT LEAVE IT PENDING UNTIL THE TIME RUNS OUT. 🔔
         </p>
-      </div>
-      <div className={styles.quizBox}>
-        {user?.quizList.map((quiz) => (
-          <button
-            key={quiz.id}
-            className={styles.quizHistory}
-            onClick={() => {
-              setCurrentQuiz(quiz);
-              setCurrentQuizIndex(parseInt(quiz.id));
-              setCurrentScreen(Screens.QuizResults);
-            }}
-          >
-            Quiz #{quiz.id}
-          </button>
-        ))}
-        <button 
+        <div className={styles.quizBox}>
+          {user?.quizList.map((quiz) => (
+            <button
+              key={quiz.id}
+              className={styles.quizHistory}
+              onClick={() => {
+                setCurrentQuiz(quiz);
+                setCurrentQuizIndex(parseInt(quiz.id));
+                setCurrentScreen(Screens.QuizResults);
+              }}
+            >
+              Quiz #{quiz.id}
+            </button>
+          ))}
+
+        </div>
+        <button
           className={styles.quizNew}
           onClick={() => {
             resetQuiz();
             setCurrentScreen(Screens.Quizscreen);
           }}
         >
-          START NEW QUIZ +
+          NEW QUIZ +
         </button>
       </div>
-      <button 
-        className={styles.buttonLogout}
-        onClick={handleLogout}
-      >
-        Log out
-      </button>
+      {/* <div className={styles.settings__container}>
+        <h3>Settings</h3>
+        <div className={styles.settings__option}>
+          <label>
+            <input 
+              type="checkbox"
+              checked={settings.darkMode}
+              onChange={(e) => {
+                setSettings(new Settings(
+                  e.target.checked,
+                  settings.language,
+                ));
+              }}
+            />
+            Dark Mode
+          </label>
+        </div>
+        <div className={styles.settings__option}>
+            <label>
+            <input 
+              type="radio"
+              name="language"
+              value="it"
+              checked={settings.language === 'it'}
+              onChange={() => {
+              setSettings(new Settings(
+                settings.darkMode,
+                'it',
+              ));
+              }}
+            />
+            Italian
+            </label>
+            <label>
+            <input 
+              type="radio"
+              name="language"
+              value="en"
+              checked={settings.language === 'en'}
+              onChange={() => {
+              setSettings(new Settings(
+                settings.darkMode,
+                'en',
+              ));
+              }}
+            />
+            English
+            </label>
+        </div>
+      </div> */}
     </div>
   );
 }

@@ -31,15 +31,11 @@
     color: #00c8ff;
     font-size: clamp(36px, 8vw, 96px);
     margin: 0;
-
     font-family: "Poppins", Arial, sans-serif;
     font-weight: 700;
-    letter-spacing: 2px;
-
-    text-shadow: 0 6px 18px rgba(0, 200, 255, 0.35);
+    text-shadow: #084759 0 0 2px, #00a2ff93 0 0 20px;
 
     max-width: 100%;
-    overflow: hidden;
 
     animation: glowIn 0.8s ease;
 }
@@ -58,6 +54,10 @@
 
     max-width: 100%;
     overflow: hidden;
+}
+
+.counter{
+    font-size: inherit;
 }
 
 /* ------------------------------- */
@@ -104,18 +104,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
     width: 90%;
     max-width: 500px;
     background: rgba(0, 20, 40, 0.7);
     padding: clamp(12px, 3vw, 30px);
     border-radius: 14px;
-
     font-size: clamp(16px, 2.5vw, 24px);
     gap: clamp(6px, 2vw, 10px);
-
     box-shadow: 0 10px 24px rgba(0,0,0,0.4);
-
     overflow: hidden;
     backdrop-filter: blur(4px);
     animation: slideUp 0.7s ease;
@@ -180,7 +176,6 @@
 }
 
 .score p {
-    color: #00ffbf;
     font-weight: 700;
     font-size: clamp(18px, 2.5vw, 26px);
 }
@@ -189,22 +184,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
     width: 90%;
     max-width: 500px;
     background: rgba(0, 25, 50, 0.7);
     padding: clamp(10px, 2.5vw, 20px);
-
     border-radius: 12px;
     gap: clamp(6px, 2vw, 12px);
-
     font-size: clamp(18px, 2.5vw, 24px);
-
     box-shadow: 0 10px 22px rgba(0,0,0,0.35);
-
     overflow: hidden;
     backdrop-filter: blur(4px);
-
     transition: transform 0.25s ease;
 }
 
@@ -213,7 +202,6 @@
 }
 
 .correct_answers_count h2 {
-    color: #00ffbf;
     font-weight: bold;
     margin-left: 10px;
 }
