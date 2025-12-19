@@ -13,6 +13,7 @@ function QuizResults({ setCurrentScreen }: QuizResultsProps) {
   const currentUser = useAtomValue(currentUserAtom);
   const currentQuizIndex = useAtomValue(currentQuizIndexAtom);
 
+
   if (!currentUser?.quizList.length) {
     return <h1>Loading results...</h1>;
   }
@@ -49,13 +50,14 @@ function QuizResults({ setCurrentScreen }: QuizResultsProps) {
     if (sentences.length === 0) {
       return "Better next time, loser XD";
     }
-    
+
     // eslint-disable-next-line react-hooks/purity
     const randomIndex = Math.floor(Math.random() * sentences.length);
     return sentences[randomIndex].sentence;
   }
 
   const message = getRandomSentence(errors);
+  const isFailed = errors > 3;
 
   return (
     <div className={styles.container}>
@@ -66,7 +68,10 @@ function QuizResults({ setCurrentScreen }: QuizResultsProps) {
 
         <div className={styles.container_score}>
           <p>Your Score:</p>
-          <div className={styles.score}>
+          <div
+            className={styles.score}
+            style={{ color: isFailed ? "red" : "limegreen" }}
+          >
             <p>{percentage}%</p>
           </div>
         </div>
@@ -74,9 +79,13 @@ function QuizResults({ setCurrentScreen }: QuizResultsProps) {
 
       <div className={styles.correct_answers_container}>
         <h2>CORRECT ANSWERS:</h2>
-        <div className={styles.correct_answers_count}>
-          <h2>{correctCount}/{totalQuestions}</h2>
+        <div
+          className={styles.correct_answers_count}
+          style={{ color: isFailed ? "red" : "limegreen" }}
+        >
+          <span className={styles.counter}>{correctCount}/{totalQuestions}</span>
         </div>
+
       </div>
 
       <div className={styles.container_buttons}>

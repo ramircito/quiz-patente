@@ -37,12 +37,14 @@
 
 .race {
     color: #074b8e;
+    font-size: inherit;
     
     
 }
 
 .go {
     color: darksalmon;
+    font-size: inherit;
 
 
 }
@@ -81,13 +83,13 @@
 
 /* Warning */
 .warning {
-    font-size: 14px;
-    color: #cc0000;
-    font-weight: bold;
+    font-size: 18px;
+    color: #ff1919;
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
 }
 
 /* Button */
-button {
+.button {
     width: 100%;
     max-width: 260px;
     padding: 14px 20px;
@@ -99,8 +101,16 @@ button {
     border-radius: 12px;
 }
 
-button:active {
-    transform: scale(0.97);
+.button:hover {
+    background-color: #003d99;
+    transform: perspective(1px) translateZ(0);
+    cursor: pointer;
+
+}
+
+.button:active {
+    background-color: #002966;
+
 }
 
 /* Theme button */
@@ -138,9 +148,6 @@ button:active {
         font-size: 18px;
     }
 
-    .container span {
-        font-size: 20px;
-    }
 
     .input,
     button {
@@ -162,7 +169,7 @@ button:active {
         max-width: 300px;
     }
 
-    .container  {
+    .container h1 {
         font-size: 52px;
     }
 
@@ -181,9 +188,6 @@ button:active {
         font-size: 52px;
     }
 
-    .container span {
-        font-size: 26px;
-    }
 
     button {
         padding: 16px 32px;
